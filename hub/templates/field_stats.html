@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+  <h2>IBEMC Fields Statistics</h2>
+
+  <p>
+    <b>The following table list the fields present in the data dictionary
+      and some descriptive statistics.
+    </b>    
+  </p>
+</div>
+
+
+<div>
+  <form action={% url 'stats' %} method="get">
+    <input id="query_string" placeholder="Field name or label contains..." type="text" name="query_string" value="{{ query_string }}">
+    <input type="submit" value="Search">
+    </form>
+</div>
+
+
+<div class="pagination">
+  <span class="step-links">
+    {% if stats.has_previous %}
+    <a href="?page={{ stats.previous_page_number }}"> < </a>
+    {% endif %}
+    
+    <span class="current">
+      Page {{ stats.number }} of {{ stats.paginator.num_pages }}
+    </span>
+    
+    {% if stats.has_next %}
+    <a href="?page={{ stats.next_page_number }}"> > </a>
+    {% endif %}
+  </span>
+</div>
+
+<div class="container">
+      <table class="table-condensed">
+        <thead>
+          <tr>
+            <th>Redcap variable name</th>
+            <th>Expected</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <!-- <th>NP</th> -->
+            <!-- <th>NA</th> -->
+            <th>Field Absent</th>
+            <th align="left">Label</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for stat in stats %}
+          <tr align="center">
+            <td>{{stat.field_name }}</td>
+            <td>{{ stat.ep|add:stat.ea }}</td>
+            <td>{{stat.ep}}</td>
+            <td>{{stat.ea}}</td>
+            <!-- <td>{{stat.np}}</td> -->
+            <!-- <td>{{stat.na}}</td> -->
+            <td>{% if stat.fa == 6675 %}True{% else %} {% endif %}</td>
+            <td align="left">{{stat.field_label}}</td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+    
+<div>
+  <br/>
+  <b>Table legend:</b>
+
+  <div class="container">
+      <table class="table-condensed">
+        <tbody>
+          <tr>
+            <td><i>Redcap variable name:</i></td>
+            <td>Name of the imported Redcap field</td>
+          </tr>
+          <tr>
+            <td><i>Expected:</i></td>
+            <td>Maximum number of data points given patient's visits and branch logic (diagnosis)</td>
+          </tr>
+          <tr>
+            <td><i>Present:</i></td>
+            <td>Number of patient visits with data in this field</td>
+          </tr>
+          <tr>
+            <td><i>Absent:</i></td>
+            <td>Number of patient visits without data in this field</td>
+          </tr>
+          <!-- <tr> -->
+          <!--   <td><i>NP:</i></td> -->
+          <!--   <td>Unexpected field data is provied</td> -->
+          <!-- </tr> -->
+          <!-- <tr> -->
+          <!--   <td><i>NA:</i></td> -->
+          <!--   <td>Field data absent as expected</td> -->
+          <!-- </tr> -->
+          <tr>
+            <td><i>Field Absent:</i></td>
+            <td>True if variable is present in the data dictionary but is not provided in the Redcap export</td>
+          </tr>
+          <tr>
+            <td><i>Field Label:</i></td>
+            <td>Label of the imported Redcap variable</td>
+          </tr>
+        </tbody>
+      </table>
+ </div>
+</div>
+
+<!-- <div> -->
+<!--   <br/> -->
+<!--   <p><a class="btn btn-primary" href="{% url "query" %}">Back to data discovery</a></p> -->
+<!-- </div> -->
+{% endblock %}

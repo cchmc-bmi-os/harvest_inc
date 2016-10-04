@@ -1,0 +1,18 @@
+include requirements.txt
+include wsgi.py
+include bin/manage.py
+include Makefile
+
+graft _site
+graft server
+
+global-exclude .DS_Store
+
+exclude harvest_inc/static/scripts/javascript/app.build.js
+exclude harvest_inc/static/scripts/javascript/min/build.txt
+exclude harvest_inc/conf/local_settings.py
+
+prune _site/static
+prune harvest_inc/static/scripts/coffeescript
+prune harvest_inc/static/stylesheets/scss
+prune tests
