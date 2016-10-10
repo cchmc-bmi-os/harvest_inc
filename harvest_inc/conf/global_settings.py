@@ -16,6 +16,7 @@ INSTALLED_APPS = (
     'harvest_inc',
     'ibemc',
     'hub',
+    'fixture_magic',
 
     'south',
     'serrano',

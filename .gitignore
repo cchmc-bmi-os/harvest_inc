@@ -1,6 +1,9 @@
 # OS X
 .DS_Store
 
+# Migrations
+ibmec/migrations/*
+
 # Editor files
 *.sw?
 *~
