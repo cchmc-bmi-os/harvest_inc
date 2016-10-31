@@ -13,7 +13,7 @@
 
 
 <div>
-  <form action={% url 'stats' %} method="get">
+  <form action={% url 'stats' %}?query_string={{ query_string }} method="get">
     <input id="query_string" placeholder="Field name or label contains..." type="text" name="query_string" value="{{ query_string }}">
     <input type="submit" value="Search">
     </form>
@@ -23,7 +23,7 @@
 <div class="pagination">
   <span class="step-links">
     {% if stats.has_previous %}
-    <a href="?page={{ stats.previous_page_number }}"> < </a>
+    <a href="?page={{ stats.previous_page_number }}&query_string={{ query_string }}"> < </a>
     {% endif %}
     
     <span class="current">
@@ -31,7 +31,7 @@
     </span>
     
     {% if stats.has_next %}
-    <a href="?page={{ stats.next_page_number }}"> > </a>
+    <a href="?page={{ stats.next_page_number }}&query_string={{ query_string }}"> > </a>
     {% endif %}
   </span>
 </div>

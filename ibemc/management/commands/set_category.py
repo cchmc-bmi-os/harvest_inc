@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from avocado.models import DataCategory, DataConcept, DataField
 
 SUBJECT = ('Subject', {'published':True, 'order': 1})
+DIAGNOSIS = ('Diagnosis', {'published':True, 'order': 2})
 COMPLETE_CAT = ('Form', {'published':True, 'order': 700})
 INTERNALS = ('Internals', {'published':True, 'order': 800})
 UNUSED = ('Unused', {'published':False, 'order': 900})
@@ -36,6 +37,32 @@ def set_category(concept):
         concept.category = cat
         concept.save()
         return cat
+
+    ## agw
+    if 'age' in concept.name.lower():
+        cat_name = SUBJECT[0]
+        cat_default = SUBJECT[1]
+        cat, created = DataCategory.objects.get_or_create(
+            name=cat_name,
+            defaults=cat_default
+        )
+        concept.category = cat
+        concept.save()
+        return cat
+
+
+    ## Diagnosis
+    if 'diagnosis' in concept.name.lower() or 'condition' in concept.name.lower():
+        cat_name = DIAGNOSIS[0]
+        cat_default = DIAGNOSIS[1]
+        cat, created = DataCategory.objects.get_or_create(
+            name=cat_name,
+            defaults=cat_default
+        )
+        concept.category = cat
+        concept.save()
+        return cat
+
 
     ## Specific classes
     if concept.name.endswith(' Complete'):
