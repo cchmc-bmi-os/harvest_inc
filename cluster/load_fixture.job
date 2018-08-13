@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+#BSUB -J load_fixture         #job name
+#BSUB -W 24:00                # wall-clock time (hrs:mins)
+#BSUB -e errors.%J.hybrid     # error file name in which %J is replaced by the job ID
+#BSUB -M 64000
+
+
+## Configuration
+##########################################
+
+ROOT_DIR=/users/labs9y/Projects/lpdr
+DIR_DATA=$ROOT_DIR/harvest_inc/cluster
+
+FIXTURE=IBEMISProduction_DATA_2017-03-11_0603_fixture_modified.json
+
+
+## Virutal env
+#########################################
+# The activate contains module load python and postgres
+source $ROOT_DIR/env_cluster/bin/activate
+
+
+## Command
+########################################
+python $ROOT_DIR/harvest_inc/bin/manage.py loaddata --ignorenonexistent $DIR_DATA/$FIXTURE

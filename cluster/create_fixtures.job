@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+#BSUB -J create_ibemc_fixture #job name
+#BSUB -W 24:00                # wall-clock time (hrs:mins)
+#BSUB -e errors.%J.hybrid     # error file name in which %J is replaced by the job ID
+#BSUB -M 64000
+
+
+## Configuration
+##########################################
+
+ROOT_DIR=/users/labs9y/Projects/lpdr
+DIR_DATA=$ROOT_DIR/data
+
+DD_JSON=IBEMISProduction_DataDictionary_2016-05-25_clean_modified.json
+DF=IBEMISProduction_DATA_2017-03-11_0603.csv
+##DF=data100.csv
+##DF=data200.csv
+
+
+
+ROOT_DIR=/home/devuser/webapps
+DIR_DATA=/home/devuser/webapps/harvest_inc-env/data
+DIR_INTEGRATION=/home/devuser/webapps/integration/SMA_2017-10-25
+
+DF=NHx_DATA_2017-10-25_1455.csv
+DD_JSON=SMA_2017_08_10_dd_modified.json
+LPDR_APP=sma
+
+
+## Virutal env
+#########################################
+# The activate contains module load python and postgres
+source $ROOT_DIR/env_cluster/bin/activate
+
+
+## Command
+########################################
+python $ROOT_DIR/harvest_inc/bin/manage.py redcap fixture $DIR_DATA/$DF $DIR_DATA/$DD_JSON $LPDR_APP

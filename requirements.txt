@@ -1,0 +1,25 @@
+appdirs==1.4.3
+-e git+https://labucketgp@bitbucket.org/labucketgp/avocado.git@14a9c27ed4327987f15a44313dfdce85aaa51e94#egg=avocado
+click==6.7
+-e git+https://labucketgp@bitbucket.org/labucketgp/django.git@84053277025526d784f11e1bd4ee0ab7eeaba978#egg=Django
+-e git+https://labs9y@stash.research.cchmc.org/scm/ossdevel/django-haystack.git@7addbcb2985c25be5f2a6b1ce7e85c66e19d4ddc#egg=django_haystack
+django-preserialize==1.1.0
+-e git+https://labs9y@stash.research.cchmc.org/scm/lpdr/django_redcap.git@c45d35b72c19e71446664c2f849f88c0b9805f34#egg=django_redcap
+django-rq==0.9.5
+et-xmlfile==1.0.1
+inflect==0.2.5
+jdcal==1.3
+jsonfield==1.0.0
+modeltree==1.1.9
+openpyxl==2.1.5
+packaging==16.8
+psycopg2==2.7.1
+pyparsing==2.2.0
+redis==2.10.5
+restlib2==0.4.3
+rq==0.7.1
+-e git+https://labucketgp@bitbucket.org/labucketgp/serrano.git@dynamic_graph#egg=serrano
+six==1.10.0
+South==1.0.2
+uWSGI==2.0.13.1
+Whoosh==2.5.0
